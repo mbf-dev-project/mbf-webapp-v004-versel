@@ -68,15 +68,11 @@ export function AppShell() {
           {tab === 'profile' && <ProfileScreen onNotify={notify} />}
         </div>
 
-        <div
-          aria-live="polite"
-          role="status"
-          className="pointer-events-none absolute inset-x-4 bottom-24 z-20 flex justify-center"
-        >
+        <div aria-live="polite" role="status" className="shrink-0 bg-background px-4">
           {toast && (
             <p
               key={toast.id}
-              className="animate-in fade-in slide-in-from-bottom-2 rounded-full border border-gold/40 bg-surface-raised px-4 py-2.5 text-center text-xs font-medium text-secondary-foreground shadow-lg shadow-black/60"
+              className="animate-in fade-in slide-in-from-bottom-1 my-2 rounded-xl border border-gold/40 bg-surface-raised px-4 py-2.5 text-center text-xs font-medium text-pretty text-secondary-foreground"
             >
               {toast.message}
             </p>

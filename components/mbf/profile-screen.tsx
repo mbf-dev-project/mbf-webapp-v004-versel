@@ -11,7 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { ActionButton, Card, DemoBadge, Eyebrow, ProgressBar, SectionHeader } from './primitives'
-import { GOALS, MEMBER, PROFILE_STATS } from './data'
+import { GOALS, MEMBER, MEMBERSHIP_ELAPSED_PERCENT, PROFILE_STATS } from './data'
 
 const CONTACTS: { icon: LucideIcon; label: string; caption: string; message: string }[] = [
   { icon: Phone, label: 'Позвонить в клуб', caption: '+998 71 000-00-00', message: 'Звонок недоступен в прототипе' },
@@ -21,8 +21,6 @@ const CONTACTS: { icon: LucideIcon; label: string; caption: string; message: str
 ]
 
 export function ProfileScreen({ onNotify }: { onNotify: (message: string) => void }) {
-  const remainingPercent = (MEMBER.daysLeft / MEMBER.daysTotal) * 100
-
   return (
     <div className="flex flex-col gap-8 px-5 pb-8 pt-[max(env(safe-area-inset-top),1.25rem)]">
       <header className="flex items-center justify-between">
@@ -49,7 +47,7 @@ export function ProfileScreen({ onNotify }: { onNotify: (message: string) => voi
             />
           </div>
           <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-gold px-2.5 py-0.5 font-display text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground">
-            Black
+            {MEMBER.tier}
           </span>
         </div>
         <p className="mt-5 font-display text-2xl font-medium uppercase tracking-wide">
@@ -85,7 +83,7 @@ export function ProfileScreen({ onNotify }: { onNotify: (message: string) => voi
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <ProgressBar value={remainingPercent} label="Оставшийся срок абонемента" />
+            <ProgressBar value={MEMBERSHIP_ELAPSED_PERCENT} label="Использованный срок абонемента" />
             <p className="text-xs text-muted-foreground">
               {MEMBER.plan} · {MEMBER.planTerm} · осталось {MEMBER.daysLeft} дней
             </p>

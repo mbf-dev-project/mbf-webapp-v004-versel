@@ -84,7 +84,11 @@ export function ScheduleScreen({
           })}
         </div>
 
-        <div role="group" aria-label="Тип занятия" className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5">
+        <div
+          role="group"
+          aria-label="Тип занятия"
+          className="no-scrollbar -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-1.5 overflow-x-auto px-5 [mask-image:linear-gradient(to_right,transparent,black_1.25rem,black_calc(100%-1.25rem),transparent)]"
+        >
           {CLASS_FILTERS.map((option) => {
             const isActive = option.value === filter
             return (
@@ -92,9 +96,12 @@ export function ScheduleScreen({
                 key={option.value}
                 type="button"
                 aria-pressed={isActive}
-                onClick={() => setFilter(option.value)}
+                onClick={(event) => {
+                  setFilter(option.value)
+                  event.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+                }}
                 className={cn(
-                  'h-9 shrink-0 rounded-full border px-4 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-gold-highlight',
+                  'h-9 shrink-0 grow snap-start whitespace-nowrap rounded-full border px-3 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-gold-highlight',
                   isActive
                     ? 'border-gold-soft/70 bg-white/5 text-gold-highlight'
                     : 'border-hairline text-muted-foreground hover:text-foreground',

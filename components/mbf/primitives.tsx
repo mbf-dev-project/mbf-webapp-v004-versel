@@ -50,6 +50,7 @@ export function DemoBadge({ className }: { className?: string }) {
       )}
     >
       Демо
+      <span className="sr-only"> — демонстрационные данные</span>
     </span>
   )
 }

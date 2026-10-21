@@ -2,7 +2,15 @@ import type { ReactNode } from 'react'
 import Image from 'next/image'
 import { ArrowUpRight, Bell, CalendarDays, Clock, MapPin, UserRound } from 'lucide-react'
 import { ActionButton, Card, DemoBadge, Eyebrow, MbfMark, ProgressBar, SectionHeader } from './primitives'
-import { CLASSES, MEMBER, MONTH_ACTIVITY, endTime, formatDayLabel } from './data'
+import {
+  CLASSES,
+  MEMBER,
+  MEMBERSHIP_ELAPSED_PERCENT,
+  MONTH_ACTIVITY,
+  TODAY_LABEL,
+  endTime,
+  formatDayLabel,
+} from './data'
 import type { Tab } from './bottom-nav'
 
 export function HomeScreen({
@@ -34,7 +42,7 @@ export function HomeScreen({
       </header>
 
       <section aria-labelledby="greeting">
-        <Eyebrow>Среда, 21 октября</Eyebrow>
+        <Eyebrow>{TODAY_LABEL}</Eyebrow>
         <h1
           id="greeting"
           className="mt-2 font-display text-4xl font-medium uppercase leading-[1.05] tracking-wide text-balance"
@@ -76,9 +84,12 @@ export function HomeScreen({
             <div className="relative flex flex-col gap-5 p-5">
               <div className="flex items-center justify-between">
                 <Eyebrow>{formatDayLabel(nextClass.dayIndex)}</Eyebrow>
-                <span className="rounded-full bg-gold/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-gold-highlight">
-                  Вы записаны
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-full bg-gold/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-gold-highlight">
+                    Вы записаны
+                  </span>
+                  <DemoBadge className="bg-background/60 py-1" />
+                </div>
               </div>
               <div>
                 <p className="font-display text-5xl font-medium leading-none tracking-tight">
@@ -140,8 +151,6 @@ export function HomeScreen({
 }
 
 function MembershipCard() {
-  const usedPercent = ((MEMBER.daysTotal - MEMBER.daysLeft) / MEMBER.daysTotal) * 100
-
   return (
     <section aria-label="Абонемент">
       <div className="relative overflow-hidden rounded-2xl border border-gold/35 bg-surface p-5">
@@ -171,7 +180,7 @@ function MembershipCard() {
         </div>
 
         <div className="relative mt-6 flex flex-col gap-2">
-          <ProgressBar value={usedPercent} label="Использованный срок абонемента" />
+          <ProgressBar value={MEMBERSHIP_ELAPSED_PERCENT} label="Использованный срок абонемента" />
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>с {MEMBER.startDate}</span>
             <span>

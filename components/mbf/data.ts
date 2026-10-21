@@ -40,9 +40,10 @@ export const MEMBER = {
   firstName: 'Алишер',
   lastName: 'Каримов',
   memberId: 'MBF 0482 1937',
-  memberSince: 'март 2025',
+  memberSince: 'марта 2025',
   club: 'MBF Ташкент · Сити',
   plan: 'MBF Black',
+  tier: 'Black',
   planTerm: 'Безлимит · 12 месяцев',
   startDate: '15.03.2026',
   expiryDate: '15.03.2027',
@@ -51,6 +52,8 @@ export const MEMBER = {
   freezeDaysLeft: 14,
   guestPasses: 2,
 }
+
+export const MEMBERSHIP_ELAPSED_PERCENT = ((MEMBER.daysTotal - MEMBER.daysLeft) / MEMBER.daysTotal) * 100
 
 export const MONTH_ACTIVITY = {
   month: 'Октябрь',
@@ -68,7 +71,12 @@ export const MONTH_ACTIVITY = {
 
 export const GOALS = [
   { label: 'Снизить вес', current: '79,4 кг', target: '78 кг', progress: 71 },
-  { label: 'Тренировок в месяц', current: '11', target: '16', progress: 69 },
+  {
+    label: 'Тренировок в месяц',
+    current: String(MONTH_ACTIVITY.workouts),
+    target: String(MONTH_ACTIVITY.goal),
+    progress: Math.round((MONTH_ACTIVITY.workouts / MONTH_ACTIVITY.goal) * 100),
+  },
   { label: 'Техника: комбинации 1–6', current: '4 из 6', target: '6', progress: 67 },
 ]
 
@@ -124,6 +132,8 @@ export const CLASSES: GymClass[] = DAY_PATTERNS.flatMap((pattern, dayIndex) =>
 )
 
 export const INITIAL_BOOKINGS = ['d0-t4']
+
+export const TODAY_LABEL = `${SCHEDULE_DAYS[0].weekdayLong}, ${SCHEDULE_DAYS[0].date} ${SCHEDULE_DAYS[0].monthGenitive}`
 
 export function getClassById(id: string) {
   return CLASSES.find((gymClass) => gymClass.id === id)
